@@ -45,10 +45,8 @@ RUN python -m src.services.facescan.plugins.setup
 COPY tools tools
 COPY sample_images sample_images
 
-# run tests
-ARG SKIP_TESTS
-COPY pytest.ini .
-RUN if [ -z $SKIP_TESTS  ]; then pytest -m "not performance" /app/ml/src; fi
+# No access to TPU devices in the build stage, so skip tests
+ENV SKIP_TESTS=1
 
 # create folder for tflite model
 RUN mkdir -p /app/ml/.cache/mtcnn-tflite-models
