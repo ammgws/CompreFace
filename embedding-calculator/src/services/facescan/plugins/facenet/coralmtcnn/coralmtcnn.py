@@ -110,7 +110,7 @@ class Calculator(mixins.CalculatorMixin, base.BasePlugin):
         ('20180402-114759-edgetpu', '1Uwv8w6Uj5M_xdJI9sjay_wkoFoI_zbjk', (1.1817961, 5.291995557), 0.4),
     )
     BATCH_SIZE = 25
-    DELIGATES = 'libedgetpu.so.1'
+    DELEGATES = 'libedgetpu.so.1'
 
     @property
     def ml_model_file(self):
@@ -118,7 +118,7 @@ class Calculator(mixins.CalculatorMixin, base.BasePlugin):
 
     @cached_property
     def _embedding_calculator_tpu(self):
-        delegate_list = tf.lite.experimental.load_delegate(self.DELIGATES)
+        delegate_list = tf.lite.experimental.load_delegate(self.DELEGATES)
         model = tf.lite.Interpreter(
                                 model_path=self.ml_model_file,
                                 experimental_delegates=[delegate_list])
